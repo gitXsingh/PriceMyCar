@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>Machine Learning API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+</head>
+<style>
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #3a1c71 0%, #d76d77 50%, #ffaf7b 100%);
+}
+.center-card {
+  background: rgba(30, 34, 90, 0.92);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 40px 48px 32px 48px;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-title {
+  color: #fff;
+  font-size: 2.2em;
+  font-weight: bold;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.flex-form {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  width: 100%;
+  justify-content: center;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 220px;
+}
+.flex-col label {
+  color: #fff;
+  font-size: 1em;
+  margin-bottom: 4px;
+}
+.flex-col input, .flex-col select {
+  width: 100%;
+  min-width: 180px;
+  max-width: 240px;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1em;
+  background: #23244a;
+  color: #fff;
+  outline: none;
+}
+.flex-col input:focus, .flex-col select:focus {
+  background: #2d2e5a;
+}
+.result-box {
+  margin-top: 32px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 18px 36px;
+  font-size: 1.3em;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  min-width: 260px;
+}
+.predict-btn {
+  margin-top: 24px;
+  width: 100%;
+  padding: 12px 0;
+  font-size: 1.1em;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(90deg, #3a1c71 0%, #d76d77 100%);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.predict-btn:hover {
+  background: linear-gradient(90deg, #d76d77 0%, #3a1c71 100%);
+}
+</style>
+<body>
+  <div class="center-card">
+    <div class="form-title">Automobile Price Prediction</div>
+    <form action="{{ url_for('predict')}}" method="post" style="width: 100%;">
+      <div class="flex-form">
+        <div class="flex-col">
+          <label for="fuel-type">Fuel Type:</label>
+          <select name="fuel-type" id="fuel-type" required>
+            <option value="">Select Fuel Type</option>
+            <option value="gas">Gas</option>
+            <option value="diesel">Diesel</option>
+          </select>
+          <label for="engine-size">Engine-size (cc):</label>
+          <input type="number" name="engine-size" id="engine-size" placeholder="Engine-size (cc)" required />
+          <label for="horsepower">Horsepower:</label>
+          <input type="number" name="horsepower" id="horsepower" placeholder="Horsepower" required />
+        </div>
+        <div class="flex-col">
+          <label for="num-of-cylinders">Number of Cylinders:</label>
+          <select name="num-of-cylinders" id="num-of-cylinders" required>
+            <option value="">Select Number of Cylinders</option>
+            <option value="two">Two</option>
+            <option value="three">Three</option>
+            <option value="four">Four</option>
+            <option value="five">Five</option>
+            <option value="six">Six</option>
+            <option value="eight">Eight</option>
+            <option value="twelve">Twelve</option>
+          </select>
+          <label for="fuel-system">Fuel System:</label>
+          <select name="fuel-system" id="fuel-system" required>
+            <option value="">Select Fuel System</option>
+            <option value="mpfi">MPFI</option>
+            <option value="2bbl">2BBL</option>
+            <option value="idi">IDI</option>
+            <option value="1bbl">1BBL</option>
+            <option value="spdi">SPDI</option>
+            <option value="4bbl">4BBL</option>
+            <option value="mfi">MFI</option>
+            <option value="spfi">SPFI</option>
+          </select>
+          <label for="city-mpg">City-mpg:</label>
+          <input type="number" name="city-mpg" id="city-mpg" placeholder="City-mpg" required />
+        </div>
+      </div>
+      <div class="flex-col" style="margin: 0 auto; margin-top: 18px; max-width: 300px;">
+        <label for="highway-mpg">Highway-mpg:</label>
+        <input type="number" name="highway-mpg" id="highway-mpg" placeholder="Highway-mpg" required />
+        <button type="submit" class="predict-btn">Predict</button>
+      </div>
+    </form>
+    {% if prediction_text %}
+      <div class="result-box">
+        {{ prediction_text }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
