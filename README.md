@@ -1,4 +1,11 @@
 # PriceMyCar — Automobile Price Prediction (Flask)
+<img width="975" height="493" alt="image" src="https://github.com/user-attachments/assets/07a68052-2dd5-42f8-a697-2ac461d3db9b" />
+<img width="759" height="404" alt="image" src="https://github.com/user-attachments/assets/388da0c6-f441-4452-9877-efd1cfe1c3c1" />
+
+
+
+This project is a web application that predicts the price of an automobile based on user input features using a machine learning model trained on real-world data.
+
 
 A Flask app that predicts automobile prices using a pre-trained scikit-learn model bundle.
 
